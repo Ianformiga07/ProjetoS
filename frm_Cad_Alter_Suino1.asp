@@ -838,124 +838,144 @@ else if(resp == 2){
                     </tr>
                 </tr>
 
-		<%
-		call abreConexao
-		sql = "SELECT * FROM TB_Suinocultura WHERE CodINCRA = '"&Session("Incra")&"'"
-		'response.write sql
-		'response.end
-		set rs = conn.execute(sql)
 
-		if not rs.eof then
-
-		QtdeMachos02          = rs("QtdeMachos02")
-		QtdeFemeas02          = rs("QtdeFemeas02")
-		QtdeMachos34          = rs("QtdeMachos34")
-		QtdeFemeas34          = rs("QtdeFemeas34")
-		QtdeMachos56          = rs("QtdeMachos56")
-		QtdeFemeas56          = rs("QtdeFemeas56")
-		QtdeCachacosSuino     = rs("QtdeCachacosSuino")
-		QtdeMatrizesSuino     = rs("QtdeMatrizesSuino")
-		end if
-		totalM = (QtdeMachos02+QtdeMachos34+QtdeMachos56+QtdeCachacosSuino)
-		totalF = (QtdeFemeas02+QtdeFemeas34+QtdeFemeas56+QtdeMatrizesSuino)
-
-		totalM6 = (QtdeMachos02+QtdeMachos34+QtdeMachos56)
-		totalF6 = (QtdeFemeas02+QtdeFemeas34+QtdeFemeas56)
-		
-		'response.write(totalM)
-		'response.end
-		%>
-
-      <td colspan="4" class="text2">
+	<tr>
+	  <td colspan="4">
 		<div id="divTecnificada" class="ds-none">
-		9 - N&deg;. de Animais Existentes(<b>Tecnificadas</b>):<br>
+		<table class="tabela_peixe" border="0" align="center" width="700">
+        <tr>	
 
-    <tr>
-      <td colspan="1" height="19" align="middle" class="text2"><div align="center"><center>
-        <p>0 - 2 meses</p>
-      </center></div></td>
-      <td colspan="1" height="19" align="middle" class="text2"><div align="center"><center>
-        <p>3 - 4 meses</p>
-      </center></div></td>
-      <td colspan="1" height="19" align="middle" class="text2"><div align="center"><center>
-        <p>5 - 6 meses</p>
-      </center></div></td>
-      <td colspan="1" height="19" align="middle" class="text2"><div align="center"><center>
-        <p>Total</p>
-      </center></div></td>
-    </tr>
+			<td height="19" colspan="4" class="text2">
+			9 - N&deg;. de Animais Existentes(<b>Tecnificadas</b>):<br>
+
+			<tr>
+			<td colspan="1" height="19" align="middle" class="text2"><div align="center"><center>
+				<p>0 - 2 meses</p>
+			</center></div></td>
+			<td colspan="1" height="19" align="middle" class="text2"><div align="center"><center>
+				<p>3 - 4 meses</p>
+			</center></div></td>
+			<td colspan="1" height="19" align="middle" class="text2"><div align="center"><center>
+				<p>5 - 6 meses</p>
+			</center></div></td>
+			<td colspan="1" height="19" align="middle" class="text2"><div align="center"><center>
+				<p>Total</p>
+			</center></div></td>
+			</tr>
+					<%
+					call abreConexao
+					sql = "SELECT * FROM TB_Suinocultura WHERE CodINCRA = '"&Session("Incra")&"'"
+					'response.write sql
+					'response.end
+					set rs = conn.execute(sql)
+
+					if not rs.eof then
+
+					QtdeMachos02          = rs("QtdeMachos02")
+					QtdeFemeas02          = rs("QtdeFemeas02")
+					QtdeMachos34          = rs("QtdeMachos34")
+					QtdeFemeas34          = rs("QtdeFemeas34")
+					QtdeMachos56          = rs("QtdeMachos56")
+					QtdeFemeas56          = rs("QtdeFemeas56")
+					QtdeCachacosSuino     = rs("QtdeCachacosSuino")
+					QtdeMatrizesSuino     = rs("QtdeMatrizesSuino")
+					end if
+					totalM = (QtdeMachos02+QtdeMachos34+QtdeMachos56+QtdeCachacosSuino)
+					totalF = (QtdeFemeas02+QtdeFemeas34+QtdeFemeas56+QtdeMatrizesSuino)
+
+					totalM6 = (QtdeMachos02+QtdeMachos34+QtdeMachos56)
+					totalF6 = (QtdeFemeas02+QtdeFemeas34+QtdeFemeas56)
+					
+					'response.write(totalM)
+					'response.end
+					%>
+
 	
-    <tr align="middle">
-    <td width="105" height="18" align="center" class="text2">M
-    	<input type="text" name="edQtde02MachoSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeMachos02") %>"  onblur="calc_total_Suino_Macho()" onChange="valor(edQtde02MachoSuideo)" class="text" readonly>
-	  F 
-	  <input type="text" name="edQtde02FemeaSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeFemeas02")%>"  onblur="calc_total_Suino_Femea()" onChange="valor(edQtde02FemeaSuideo)" class="text" readonly>
-	  </td>
-      <td width="102" height="18" class="text2">M
-      <input type="text" name="edQtde34MachoSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeMachos34")%>"  onBlur="calc_total_Suino_Macho()"  onChange="valor(edQtde34MachoSuideo)" class="text" readonly>
-      F
-      <input type="text" name="edQtde34FemeaSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeFemeas34")%>" onBlur="calc_total_Suino_Femea()" onChange="valor(edQtde34FemeaSuideo)" class="text" readonly>
-	  </td>
-      <td width="150" height="18" class="text2">M
-      <input type="text" name="edQtde56MachoSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeMachos56")%>" onBlur="calc_total_Suino_Macho()" onChange="valor(edQtde56MachoSuideo)" class="text" readonly>
-      F
-      <input type="text" name="edQtde56FemeaSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeFemeas56")%>" onBlur="calc_total_Suino_Femea()" onChange="valor(edQtde56FemeaSuideo)" class="text" readonly>
-	  </td>
-      <td width="150" height="18" class="text2">M
-      <input type="text" name="TotalMachoSuideo" size="5" style="color:red;" value="<%=totalM%>"   readonly class="text">
-      F
-      <input type="text" name="TotalFemeaSuideo" size="5" style="color:red;" value="<%=totalF%>"   readonly class="text">
-	  </td>
-    </tr>
-	<input type="hidden" id="Totalsuinos" name="TotalSuinos" size="10" value=0>
- <tr>
-      <td colspan="1" class="text2"><b>Cacha&ccedil;os : </b></td>
-      <td colspan="1"><input type="text" name="TotalCachacos" size="5" value="<%if not rs.eof then Response.Write rs("QtdeCachacosSuino")%>" onBlur="calc_total_Suino_Macho()" onChange="valor(TotalCachacos)" class="text" readonly></td>
-      <td colspan="1" class="text2"><b>Matrizes:</b></td>
-      <td colspan="1"><input type="text" name="TotalMatrizes" size="5" value="<%if not rs.eof then Response.Write rs("QtdeMatrizesSuino")%>" onBlur="calc_total_Suino_Femea()" onChange="valor(TotalMatrizes)" class="text" readonly></td>
-    </tr>
-  </div>
-			
+			<tr align="middle">
+			<td width="105" height="18" align="center" class="text2">M
+				<input type="text" name="edQtde02MachoSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeMachos02") %>"  onblur="calc_total_Suino_Macho()" onChange="valor(edQtde02MachoSuideo)" class="text" readonly>
+			F 
+			<input type="text" name="edQtde02FemeaSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeFemeas02")%>"  onblur="calc_total_Suino_Femea()" onChange="valor(edQtde02FemeaSuideo)" class="text" readonly>
+			</td>
+			<td width="102" height="18" class="text2">M
+			<input type="text" name="edQtde34MachoSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeMachos34")%>"  onBlur="calc_total_Suino_Macho()"  onChange="valor(edQtde34MachoSuideo)" class="text" readonly>
+			F
+			<input type="text" name="edQtde34FemeaSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeFemeas34")%>" onBlur="calc_total_Suino_Femea()" onChange="valor(edQtde34FemeaSuideo)" class="text" readonly>
+			</td>
+			<td width="150" height="18" class="text2">M
+			<input type="text" name="edQtde56MachoSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeMachos56")%>" onBlur="calc_total_Suino_Macho()" onChange="valor(edQtde56MachoSuideo)" class="text" readonly>
+			F
+			<input type="text" name="edQtde56FemeaSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeFemeas56")%>" onBlur="calc_total_Suino_Femea()" onChange="valor(edQtde56FemeaSuideo)" class="text" readonly>
+			</td>
+			<td width="150" height="18" class="text2">M
+			<input type="text" name="TotalMachoSuideo" size="5" style="color:red;" value="<%=totalM%>"   readonly class="text">
+			F
+			<input type="text" name="TotalFemeaSuideo" size="5" style="color:red;" value="<%=totalF%>"   readonly class="text">
+			</td>
+			</tr>
+			<tr>
+			<td colspan="1" class="text2"><b>Cacha&ccedil;os : </b></td>
+			<td colspan="1"><input type="text" name="TotalCachacos" size="5" value="<%if not rs.eof then Response.Write rs("QtdeCachacosSuino")%>" onBlur="calc_total_Suino_Macho()" onChange="valor(TotalCachacos)" class="text" readonly></td>
+			<td colspan="1" class="text2"><b>Matrizes:</b></td>
+			<td colspan="1"><input type="text" name="TotalMatrizes" size="5" value="<%if not rs.eof then Response.Write rs("QtdeMatrizesSuino")%>" onBlur="calc_total_Suino_Femea()" onChange="valor(TotalMatrizes)" class="text" readonly></td>
+			</tr>
+			</td>
+
+   		</tr>
+		</table>
+		</div>
+   	  </td>
+	</tr>
+  
+
+
+	<tr>
+	  <td colspan="4">
+		<div id="divNaoTecnificada" class="ds-none">
+		  <table class="tabela_peixe" border="0" align="center" width="700">
 			<tr>
 				<td colspan="4">
-					<div id="divNaoTecnificada">
 					9 - N&deg;. de Animais Existentes(<b>N&atilde;o Tecnificadas</b>): <br> <br>
 				</td>
 			</tr>
     
-    <tr>
-      <td colspan="1" height="19" align="middle" class="text2"><div align="center"><center>
-        <p>Leit&otilde;es < 6 meses:</p>
-      </center></div></td>
-      <td colspan="1" height="19" align="middle" class="text2">
-		<div align="center"><center>
-        <p>Cachacos</p>
-      </center></div>
-	  </td>
-      <td colspan="1" height="19" align="middle" class="text2">
-		<div align="center"><center>
-        <p>Matrizes</p>
-      </center></div>
-	  </td>
-      <td colspan="1" height="19" align="middle" class="text2"></td>
-    </tr>
-    <tr align="middle">
-    <td width="105" height="18" align="center" class="text2">M
-    	<input type="text" name="edQtde02MachoSuideo" size="5" value="<%=totalM6%>"  onblur="calc_total_Suino_Macho()" onChange="valor(edQtde02MachoSuideo)" class="text" readonly>
-	  F 
-	  <input type="text" name="edQtde02FemeaSuideo" size="5" value="<%=totalF6%>"  onblur="calc_total_Suino_Femea()" onChange="valor(edQtde02FemeaSuideo)" class="text" readonly>
-	  </td>
-      <td width="102" height="18" class="text2">
-      <input type="text" name="edQtde02FemeaSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeCachacosSuino")%>"  onblur="calc_total_Suino_Macho()" onChange="valor(TotalCachacos)" class="text" readonly>
-	  </td>
-      <td width="150" height="18" class="text2">
-	  <input type="text" name="edQtde02FemeaSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeMatrizesSuino")%>"  onblur="calc_total_Suino_Femea()" onChange="valor(TotalMatrizes)" class="text" readonly>
-	  </td>
-      <td width="150" height="18" class="text2">
-	  </td>
-    </tr>
-	<input type="hidden" id="Totalsuinos" name="TotalSuinos" size="10" value=0>
-   </div>
+			<tr>
+			<td colspan="1" height="19" align="middle" class="text2"><div align="center"><center>
+				<p>Leit&otilde;es < 6 meses:</p>
+			</center></div></td>
+			<td colspan="1" height="19" align="middle" class="text2">
+				<div align="center"><center>
+				<p>Cachacos</p>
+			</center></div>
+			</td>
+			<td colspan="1" height="19" align="middle" class="text2">
+				<div align="center"><center>
+				<p>Matrizes</p>
+			</center></div>
+			</td>
+			<td colspan="1" height="19" align="middle" class="text2"></td>
+			</tr>
+			<tr align="middle">
+			<td width="105" height="18" align="center" class="text2">M
+				<input type="text" name="edQtde02MachoSuideo" size="5" value="<%=totalM6%>"  onblur="calc_total_Suino_Macho()" onChange="valor(edQtde02MachoSuideo)" class="text" readonly>
+			F 
+			<input type="text" name="edQtde02FemeaSuideo" size="5" value="<%=totalF6%>"  onblur="calc_total_Suino_Femea()" onChange="valor(edQtde02FemeaSuideo)" class="text" readonly>
+			</td>
+			<td width="102" height="18" class="text2">
+			<input type="text" name="edQtde02FemeaSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeCachacosSuino")%>"  onblur="calc_total_Suino_Macho()" onChange="valor(TotalCachacos)" class="text" readonly>
+			</td>
+			<td width="150" height="18" class="text2">
+			<input type="text" name="edQtde02FemeaSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeMatrizesSuino")%>"  onblur="calc_total_Suino_Femea()" onChange="valor(TotalMatrizes)" class="text" readonly>
+			</td>
+			<td width="150" height="18" class="text2">
+			</td>
+			</tr>
+	   	</table>
+		</div>
+   	  </td>
+	</tr>
+
+
 		<script>
 		tecnificada();
 		function tecnificada() {
@@ -965,14 +985,13 @@ else if(resp == 2){
 		document.getElementById('divTecnificada').style.display='block';
 		//console.log("tudo ok");
 		}else{
-		document.getElementById('divTecnificada').style.display = 'none';
+		document.getElementById('divTecnificada').style.display='none';
 		}
 		if(document.frm_Suinos.tecnificacao[1].checked){
 		document.getElementById('divNaoTecnificada').style.display='block';
-		
+		//console.log("tudo ok");
 		}else{
 		document.getElementById('divNaoTecnificada').style.display='none';
-		//alert("oii");
 		}
 		}
 		</script>
