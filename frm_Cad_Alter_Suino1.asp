@@ -752,7 +752,7 @@ else if(resp == 2){
                     </tr>
 					<%
 					call abreConexao
-					sql = "SELECT * FROM TB_Propriedade INNER JOIN TB_Municipios ON TB_Municipios.CodMunicipio = TB_Propriedade.CodMunProp WHERE INCRAProp = '"&Session("Incra")&"'"
+					sql = "SELECT NomeProp, CNPJCPFProprietario, InscricaoEstadual, EndProp, NomeMunicipio, idExploracao FROM TB_Propriedade INNER JOIN TB_Municipios ON TB_Municipios.CodMunicipio = TB_Propriedade.CodMunProp inner join TB_PropPecuaria on TB_PropPecuaria.CNPJCPFProdutor = TB_Propriedade.CNPJCPFProprietario WHERE INCRAProp = '"&Session("Incra")&"'"
 					'response.write sql
 					'response.end
 					set rs = conn.execute(sql)
@@ -762,14 +762,14 @@ else if(resp == 2){
 					CnpjCpfProp        = rs("CNPJCPFProprietario")
 					InscricaoEstadual  = rs("InscricaoEstadual")
 					EndProp            = rs("EndProp")
-					NomeMunicipio  = rs("NomeMunicipio")
+					NomeMunicipio      = rs("NomeMunicipio")
+					idExploracao       = rs("idExploracao")
 
 					%>
 
                     <tr>
-                    	<td colspan="3">1 - Nome da Empresa/Raz&atilde;o Social: <b><%=rs("NomeProp")%></b></td>
-                        <td colspan="2">N&deg;. do Cadastro: 
-                        <input name="NumeroCadastro" class="text" id="NumeroCadastro" size="7" maxlength="9" value="<%=NumCadastro%>" onKeyPress="mascara(this,numeros)"></td>
+                    	<td colspan="2">1 - Nome da Empresa/Raz&atilde;o Social: <b><%=rs("NomeProp")%></b></td>
+                        <td colspan="2">PGA: <%=idExploracao%></td>
                     </tr>
                     <tr>
                     	<td colspan="2">2 - CNPJ: <%=rs("CNPJCPFProprietario")%></td>
@@ -886,6 +886,7 @@ else if(resp == 2){
 					totalM6 = (QtdeMachos02+QtdeMachos34+QtdeMachos56)
 					totalF6 = (QtdeFemeas02+QtdeFemeas34+QtdeFemeas56)
 					
+					totalNTec = (totalM6+totalF6+QtdeCachacosSuino+QtdeMatrizesSuino)
 					'response.write(totalM)
 					'response.end
 					%>
@@ -893,9 +894,9 @@ else if(resp == 2){
 	
 			<tr align="middle">
 			<td width="105" height="18" align="center" class="text2">M
-				<input type="text" name="edQtde02MachoSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeMachos02") %>"  onblur="calc_total_Suino_Macho()" onChange="valor(edQtde02MachoSuideo)" class="text" readonly>
+				<input type="text" name="edQtde02MachoSuideo" size="5" value="<%=QtdeMachos02 %>"  onblur="calc_total_Suino_Macho()" onChange="valor(edQtde02MachoSuideo)" class="text" readonly>
 			F 
-			<input type="text" name="edQtde02FemeaSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeFemeas02")%>"  onblur="calc_total_Suino_Femea()" onChange="valor(edQtde02FemeaSuideo)" class="text" readonly>
+			<input type="text" name="edQtde02FemeaSuideo" size="5" value="<%=QtdeFemeas02%>"  onblur="calc_total_Suino_Femea()" onChange="valor(edQtde02FemeaSuideo)" class="text" readonly>
 			</td>
 			<td width="102" height="18" class="text2">M
 			<input type="text" name="edQtde34MachoSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeMachos34")%>"  onBlur="calc_total_Suino_Macho()"  onChange="valor(edQtde34MachoSuideo)" class="text" readonly>
@@ -953,7 +954,11 @@ else if(resp == 2){
 				<p>Matrizes</p>
 			</center></div>
 			</td>
-			<td colspan="1" height="19" align="middle" class="text2"></td>
+			<td colspan="1" height="19" align="middle" class="text2">
+				<div align="center"><center>
+				<p>Total</p>
+			</center></div>				
+			</td>
 			</tr>
 			<tr align="middle">
 			<td width="105" height="18" align="center" class="text2">M
@@ -968,6 +973,10 @@ else if(resp == 2){
 			<input type="text" name="edQtde02FemeaSuideo" size="5" value="<%if not rs.eof then Response.Write rs("QtdeMatrizesSuino")%>"  onblur="calc_total_Suino_Femea()" onChange="valor(TotalMatrizes)" class="text" readonly>
 			</td>
 			<td width="150" height="18" class="text2">
+			M
+			<input type="text" name="TotalMachoSuideo" size="5" style="color:red;" value="<%=totalM%>"   readonly class="text">
+			F
+			<input type="text" name="TotalFemeaSuideo" size="5" style="color:red;" value="<%=totalF%>"   readonly class="text">
 			</td>
 			</tr>
 	   	</table>
